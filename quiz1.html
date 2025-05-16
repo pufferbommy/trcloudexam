@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz1</title>
+  <style>
+    body {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      margin: 0;
+    }
+    #form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="./quiz1.html">Quiz1</a>
+    <a href="./quiz2.html">Quiz2</a>
+    <a href="./quiz3.html">Quiz3</a>
+    <a href="./quiz4.html">Quiz4</a>
+  </nav>
+  <form id="form">
+    <label for="size">Size</label>
+    <input name="size" id="size" required type="number">
+    <button>Create Star Triangle</button>
+  </form>
+  <div id="triangle"></div>
+  <script>
+    const form = document.getElementById("form")
+    const triangle = document.getElementById("triangle")
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+
+      const formData = new FormData(e.target)
+
+      const size = Number(formData.get("size"))
+
+      triangle.innerText = createStarTriangle(size)
+    })
+
+    /**
+    * @param {number} size
+    */
+    function createStarTriangle(size) {
+      let starTriangle = ""
+      
+      const initialRow = isEven(size) ? 1 : size
+      const updator = isEven(size) ? 1 : -1
+      for(let row = initialRow; isEven(size) ? row <= size : row >= 1; row += updator) {
+        for(let col = 1; col <= row; col++) {
+          starTriangle += "*"
+        }
+        starTriangle += "\n"
+      }
+
+      return starTriangle
+    }
+
+    /**
+    * @param {number} number
+    */
+    function isEven(number) {
+      return number % 2 === 0
+    }
+  </script>
+</body>
+</html>

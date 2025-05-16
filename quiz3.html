@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz3</title>
+  <style>
+    body {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      margin: 0;
+      align-items: start;
+    }
+    table, th, td {
+      border: 1px solid;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 1rem;
+    }
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="./quiz1.html">Quiz1</a>
+    <a href="./quiz2.html">Quiz2</a>
+    <a href="./quiz3.html">Quiz3</a>
+    <a href="./quiz4.html">Quiz4</a>
+  </nav>
+  <h2>Array 1</h2>
+  <table id="array1-table">
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+    </tr>
+  </table>
+  <h2>Array 2</h2>
+  <table id="array2-table">
+    <tr>
+      <th>Code</th>
+      <th>City</th>
+    </tr>
+  </table>
+  <h2>Output</h2>
+  <table id="output-table">
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>City</th>
+    </tr>
+  </table>
+  <script>
+    const codeToName = new Map()
+    const codeToCity = new Map()
+
+    const array1 = [
+      {
+        code: "101",
+        name: "AAA",
+      },
+      {
+        code: "102",
+        name: "BBB",
+      },
+      {
+        code: "103",
+        name: "CCC",
+      }
+    ]
+    const array2 = [
+      {
+        code: "103",
+        city: "Singapore"
+      },
+      {
+        code: "102",
+        city: "Tokyo",
+      },
+      {
+        code: "101",
+        city: "Bangkok"
+      }
+    ]
+    let output = []
+  
+    const array1Table = document.getElementById("array1-table")
+    const array2Table = document.getElementById("array2-table")
+    const outputTable = document.getElementById("output-table")
+
+    array1Table.innerHTML += array1.map((item) => {
+      codeToName.set(item.code, item.name)
+
+      return `
+        <tr>
+          <td>${item.code}</td>
+          <td>${item.name}</td>
+        </tr>
+      `
+    }).join("")
+
+    array2Table.innerHTML += array2.map((item) => {
+      codeToCity.set(item.code, item.city)
+
+      return `
+        <tr>
+          <td>${item.code}</td>
+          <td>${item.city}</td>
+        </tr>
+      `
+    }).join("")
+    
+    output = array1.map((item) => ({
+      code: item.code,
+      name: codeToName.get(item.code),
+      city: codeToCity.get(item.code),
+    }))
+
+    outputTable.innerHTML += output.map((item) => `
+      <tr>
+        <td>${item.code}</td>
+        <td>${item.name}</td>
+        <td>${item.city || "-"}</td>
+      </tr>
+    `).join("")
+  </script>
+</body>
+</html>
